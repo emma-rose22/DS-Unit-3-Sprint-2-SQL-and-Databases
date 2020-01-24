@@ -31,15 +31,14 @@ print(titanic.dtypes)
 
 dbname = 'nussvsao'
 user = 'nussvsao'
-password = 'you cant have my password'
+password = 'TnNnUorhxIhJg5DUGN398tVLZWXqiXHA'
 host = 'rajje.db.elephantsql.com'
 
 pg_conn = psycopg2.connect(dbname=dbname, user=user,
                            password=password, host=host)
-
-
 pg_curs = pg_conn.cursor()
 
+"""
 create_titanic_table = '''
 CREATE TABLE titanic_table(
     Survived INT,
@@ -70,6 +69,55 @@ for index, row in titanic.iterrows():
 
 pg_conn.commit()
 
+
 query = 'SELECT * FROM titanic_table;'
+pg_curs.execute(query)
+print(pg_curs.fetchall())
+
+query = '''SELECT COUNT(Survived) FROM titanic_table
+        WHERE Survived = 1;'''
+pg_curs.execute(query)
+print(pg_curs.fetchall())
+
+query = '''SELECT COUNT(Pclass) FROM titanic_table
+WHERE Pclass = 3;
+'''
+pg_curs.execute(query)
+print(pg_curs.fetchall())
+
+query = '''SELECT COUNT(Survived) FROM titanic_table
+WHERE Pclass = 3 AND Survived = 1;
+'''
+pg_curs.execute(query)
+print(pg_curs.fetchall())
+
+query = ''' SELECT AVG(Age) FROM titanic_table
+WHERE Survived = 1;
+'''
+pg_curs.execute(query)
+print(pg_curs.fetchall())
+
+query = ''' SELECT AVG(Age) FROM titanic_table
+WHERE Pclass = 3;
+'''
+pg_curs.execute(query)
+print(pg_curs.fetchall())
+
+query = ''' SELECT AVG(Fare) FROM titanic_table
+WHERE Survived = 1;
+'''
+pg_curs.execute(query)
+print(pg_curs.fetchall())
+
+query = ''' SELECT AVG(ParentsChildrenAboard) FROM titanic_table
+WHERE Survived = 1;
+'''
+pg_curs.execute(query)
+print(pg_curs.fetchall())
+
+"""
+query = ''' SELECT DISTINCT COUNT(Name)
+FROM titanic_table;
+'''
 pg_curs.execute(query)
 print(pg_curs.fetchall())
